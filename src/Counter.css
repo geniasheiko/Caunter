@@ -1,0 +1,44 @@
+
+  .tablo {
+   
+  }
+  div {
+    text-align: center;
+    margin-top: 50px;
+    
+
+  }
+  .tablo.max-value {
+    color: red; 
+  }
+
+  .button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #1328b2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #1f0e3a;
+  }
+  .button.disabled {
+    cursor: not-allowed;
+    background-color: #ccc; 
+    color: #403c3c;
+  }
+  .error {
+    border: 2px solid red;
+    background-color: #ffcccc;
+  }
+  
+  .error-text {
+    color: red;
+    font-weight: bold;
+    margin-top: 5px;
+  }
