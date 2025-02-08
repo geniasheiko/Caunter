@@ -3,14 +3,22 @@ import '../Counter.css'
 export type CounterDisplayPropsType = {
     count: number
     max: number
- }
-
- export const CounterDisplay = (props:CounterDisplayPropsType) => {
-    return (
-    <div>
-        <h1 className={props.count === props.max ? 'tablo max-value' : 'tablo'}>
-                {props.count}
-        </h1>
-    </div>
-    )
+    error: boolean
+    isSet: boolean
     }
+
+    export const CounterDisplay = ({ count, max, error, isSet }: CounterDisplayPropsType) => {
+        return (
+            <div className="counter-display">
+                {error ? (
+                    <p className="error-text">Incorrect value</p>
+                ) : !isSet ? (
+                    <p className="info-text">Enter values and 'set' press</p>
+                ) : (
+                    <h1 className={count === max ? 'tablo max-value' : 'tablo'}>
+                        {count}
+                    </h1>
+                )}
+            </div>
+        );
+    };

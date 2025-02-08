@@ -42,3 +42,12 @@
     font-weight: bold;
     margin-top: 5px;
   }
+  .error-input {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}
+
+.info-text {
+  color: gray;
+  font-style: italic;
+}
