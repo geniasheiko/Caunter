@@ -2,7 +2,7 @@ import './../Counter.css'
 type ButtonPropsType = {
     title: string
     onClick: () => void
-    disable?: boolean
+    disable: boolean
 }
 
 export const Button = (props:ButtonPropsType) => {

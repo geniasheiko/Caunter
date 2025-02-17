@@ -1,18 +1,58 @@
 
-  .tablo {
-   
-  }
-  div {
-    text-align: center;
-    margin-top: 50px;
-    
 
+  
+    .Counter {
+      display: flex;
+      
+    }
+  .Wrapper-card {
+flex:1;
+height: 250px;
+width: 350px;
+background-color: lightblue;
+border: 3px solid blue;
+border-radius: 10px;
+margin: 30px;
+}
+.inputs-block {
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
   }
-  .tablo.max-value {
+
+label {
+  display: flex;
+  padding: 5px 5px 5px 5px;
+  
+}
+input {
+ width: 70%;
+ font-size: 18px;
+ text-align: center;
+ border: 2px solid blue;
+ margin-left: 5px;
+ border-radius: 8px;
+ outline: none;
+}
+.error-input {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}
+.Button-block {
+  padding: 20px;
+}
+  
+    /* .tablo.max-value {
     color: red; 
+  } */
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
   }
 
   .button {
+    width: 100px; 
+    height: 40px;
     margin: 5px;
     padding: 10px 20px;
     font-size: 16px;
@@ -40,14 +80,22 @@
   .error-text {
     color: red;
     font-weight: bold;
-    margin-top: 5px;
+    
+  font-size: 20px;
+  font-weight: bold;
   }
-  .error-input {
-    border: 2px solid red;
-    background-color: #ffe6e6;
-}
+
 
 .info-text {
-  color: gray;
+  color: rgb(10, 6, 119);
   font-style: italic;
+  font-size: 20px;
+  font-weight: bold;
+}
+.counter-display {
+  border: 3px solid #1328b2;
+  border-radius: 5px;
+  height: 100px;
+  margin: 10px;
+  margin-bottom: 25px;
 }
