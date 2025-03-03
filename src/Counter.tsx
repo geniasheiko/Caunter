@@ -1,60 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useReducer} from 'react';
 import { Button } from './Components/Button';
 import './Counter.css'
 import { CounterDisplay } from './Components/CounterDisplay';
+import { counterReducer, incrementAC, resetAC, saveValuesAC, setMaxAC, setMinAC } from './model/counterReducer';
 
 export const Counter = () => {
-    const [count, setCount] = useState<number>(0);
-    const [min, setMin] = useState<number>(0);
-    const [max, setMax] = useState<number>(0);
-    const [error, setError] = useState<boolean>(false)  //значение, укащывает есть ли ошибка
-    const [isSet, setIsSet] = useState<boolean>(false); //определяет был ли нажат set. Помогает показать сообщение об ошибке
-
-    useEffect(() => {
-        const saveMin = localStorage.getItem('min');
-        const saveMax = localStorage.getItem('max');
-        if (saveMin && saveMax) {
-            setMin(Number(saveMin));
-            setMax(Number(saveMax));
-            setCount(Number(saveMin));
-        }
-    }, []);
-
-    const saveValues = () => {
-        if (!error) {
-            localStorage.setItem('min', min.toString());
-            localStorage.setItem('max', max.toString());
-            setCount(min);                    //сетаем мин значение, как бы обнуляем каунт
-            setIsSet(true);                    //показ, что знач сохр
-        }
+    const [state, dispatch] = useReducer(counterReducer, {
+        count: 0,
+        min: 0,
+        max: 0,
+        error: false,
+        isSet: false,
+      });
+      const { count, min, max, error, isSet } = state;
+    
+      const saveValues = () => {
+        dispatch(saveValuesAC());
     }
 
     const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
-        setMin(value);
-        validateValues(value, max);         //проверка правильно ли число введено
-        setIsSet(false);                   //нажать сэт после изм
+        dispatch(setMinAC(value))
     }
     const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
-        setMax(value);
-        validateValues(min, value);
-        setIsSet(false);
-    }
-    const validateValues = (minVal: number, maxVal: number) => {
-        if (minVal < 0 || maxVal <= minVal) {
-            setError(true);
-        } else {
-            setError(false);
-        }
+        dispatch(setMaxAC(value))
+
     }
 
     const inc = () => {
-        if (count < max)
-            setCount(count + 1)
+        dispatch(incrementAC())
     }
-    const reset = () => {
-        setCount(min)
+     const reset = () => {
+        dispatch(resetAC())
+    
     }
 
     return (
