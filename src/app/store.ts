@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, configureStore, createStore} from '@reduxjs/toolkit'
+import { combineReducers, configureStore} from '@reduxjs/toolkit'
 import { counterReducer } from '../model/counterReducer'
 
 
