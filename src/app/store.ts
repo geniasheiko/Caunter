@@ -1,4 +1,4 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import {applyMiddleware, combineReducers, configureStore, createStore} from '@reduxjs/toolkit'
 import { counterReducer } from '../model/counterReducer'
 
 
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     reducer: rootReducer,
   })
    
-  
+ // export const store = createStore(rootReducer, applyMiddleware(thunk))
 export type RootState = ReturnType<typeof store.getState>
 
 export type AppDispatch = typeof store.dispatch

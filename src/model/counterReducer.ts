@@ -1,3 +1,4 @@
+import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
 
 const SET_MIN = "SET_MIN";
 const SET_MAX = "SET_MAX";
@@ -21,65 +22,44 @@ type CounterState = {
     isSet: false,
   };
 
+  export const setMinAC = createAction<{ min: number }>(SET_MIN);
+export const setMaxAC = createAction<{ max: number }>(SET_MAX);
+export const saveValuesAC = createAction(SAVE_VALUES);
+export const incrementAC = createAction(INCREMENT);
+export const resetAC = createAction(RESET);
+
   
-  export type SetMinAction = {
-    type:'SET_MIN'
-    payload: {
-       min: number };
-    }
+ export const counterReducer = createReducer(initialState, (builder) => {
+      builder
+      .addCase(setMinAC,(state, action: PayloadAction<{ min: number }>) => {
+        state.min = action.payload.min;
+        state.error = action.payload.min < 0 || action.payload.min >= state.max;
+        state.isSet = false;
+      })
+      .addCase(setMaxAC, (state, action: PayloadAction<{ max: number }>) => {
+        state.max = action.payload.max;
+        state.error = state.min < 0 || action.payload.max <= state.min;
+        state.isSet = false;
+      })
+      .addCase(saveValuesAC, (state) => {
+        if (!state.error) {
+          state.count = state.min;
+          state.isSet = true;
+        }
+      })
+      .addCase(incrementAC, (state) => {
+        if (state.count < state.max) {
+          state.count += 1;
+        }
+      })
+      .addCase(resetAC, (state) => {
+        state.count = state.min;
+      });
+  });
+    
+    
+    
+    
+    
+    
   
-    export type SetMaxAction = {
-      type: "SET_MAX";
-      payload: { max: number };
-    };
-    
-    export type SaveValuesAction = {
-      type: "SAVE_VALUES";
-    };
-    
-    export type IncrementAction = {
-      type: "INCREMENT";
-    };
-    
-    export type ResetAction = {
-      type: "RESET";
-    };
-    export type Actions = SetMinAction | SetMaxAction | SaveValuesAction | IncrementAction | ResetAction;
-  
-    export const counterReducer = (state = initialState, action: Actions): CounterState => {
-    switch (action.type) {
-      case SAVE_VALUES:
-        return state.error ? state : { ...state, count: state.min, isSet: true };
-      case SET_MIN:
-        return {
-          ...state,
-          min: action.payload.min,
-        error: action.payload.min < 0 || action.payload.min >= state.max,
-        isSet: false,
-      };
-
-      case SET_MAX:
-        return {
-          ...state,
-          max: action.payload.max,
-        error: state.min < 0 || action.payload.max <= state.min,
-        isSet: false,
-      };
-      case INCREMENT:
-        return state.count < state.max ? { ...state, count: state.count + 1 } : state;
-      case RESET:
-        return { ...state, count: state.min };
-      default:
-        return state;
-    }
-  };
-
-  export const setMinAC = (min: number): SetMinAction => ({ type: "SET_MIN", payload: { min } });
-
-export const setMaxAC = (max: number): SetMaxAction => ({ type: "SET_MAX", payload: { max } });
-
-export const saveValuesAC = (): SaveValuesAction => ({ type: "SAVE_VALUES" });
-
-export const incrementAC = (): IncrementAction => ({ type: "INCREMENT" });
-
-export const resetAC = (): ResetAction => ({ type: "RESET" });
